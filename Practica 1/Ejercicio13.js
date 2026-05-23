@@ -29,9 +29,10 @@
     }
  );
  //Utilizando asyn/await
- async function miFuncion2() {
-    let m1 = await primerMensaje();
+ async function miFuncion() {
+    let m1 = await primero();
     console.log(m1);
-    let m2 = await segundoMensaje();
+    let m2 = await segundo();
     console.log(m2);
  }
+ miFuncion();

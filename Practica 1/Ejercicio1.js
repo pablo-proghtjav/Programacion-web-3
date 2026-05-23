@@ -18,7 +18,6 @@ function contar(texto) {
         u: contU
     }
 }
-
 let obj = contar("euforia");
 console.log(obj);
 
