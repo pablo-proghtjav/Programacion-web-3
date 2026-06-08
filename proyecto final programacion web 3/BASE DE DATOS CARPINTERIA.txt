@@ -1,0 +1,132 @@
+#### BASE DE DATOS CARPINTERIA
+
+create database carpinteria
+use carpinteria
+
+create table tienda(
+idTienda integer auto_increment,
+direccion varchar(50) not null,
+nombre varchar(50) not null,
+constraint primary key(idTienda)
+);
+
+create table empleado(
+idEmpleado integer auto_increment,
+nombre varchar(50) not null,
+apellido varchar(50) not null,
+dni varchar(10) not null,
+idTienda integer not null,
+constraint primary key(idEmpleado),
+constraint foreign key(idTienda)references tienda(idTienda)
+);
+
+create table cuenta(
+idCuenta integer auto_increment,
+usuario varchar(50) not null,
+contrasena varchar(200) not null,
+rol varchar(50) not null,
+idEmpleado integer not null,
+constraint primary key(idCuenta),
+constraint foreign key(idEmpleado)references empleado(idEmpleado)
+);
+
+create table acceso(
+idAcceso integer auto_increment,
+ip varchar(50) not null,
+evento varchar(50) not null,
+fechaHora datetime not null,
+idCuenta integer not null,
+constraint primary key(idAcceso),
+constraint foreign key(idCuenta)references cuenta(idCuenta)
+);
+
+create table categoria(
+idCategoria integer auto_increment,
+nombre varchar(50) not null,
+tipo varchar(50) not null,
+constraint primary key(idCategoria)
+);
+
+create table producto(
+idProducto integer auto_increment,
+nombre varchar(50) not null,
+descripcion varchar(200) not null,
+precio integer not null,
+stock integer not null,
+material varchar(50) not null,
+color varchar(50) not null,
+fechaInicio varchar(50) not null,
+idCategoria integer not null,
+idTienda integer not null,
+constraint primary key(idProducto),
+constraint foreign key(idCategoria)references categoria(idCategoria),
+constraint foreign key(idTienda)references tienda(idTienda)
+);
+
+create table cliente(
+idCliente integer auto_increment,
+nombre varchar(50) not null,
+apellido varchar(50) not null,
+celular varchar(10) not null,
+direccion varchar(70) not null,
+constraint primary key(idCliente)
+);
+
+create table venta(
+idVenta integer auto_increment,
+fechaV varchar(50) not null,
+total integer not null,
+idCliente integer not null,
+idTienda integer not null,
+constraint primary key(idVenta),
+constraint foreign key(idCliente)references cliente(idCliente),
+constraint foreign key(idTienda)references tienda(idTienda)
+);
+
+create table detalleVenta(
+idDetalleV integer auto_increment,
+cantidad integer not null,
+precio integer not null,
+subTotal integer not null,
+idVenta integer not null,
+idProducto integer not null,
+constraint primary key(idDetalleV),
+constraint foreign key(idVenta)references venta(idVenta),
+constraint foreign key(idProducto)references producto(idProducto)
+);
+
+create table proveedor(
+idProveedor integer auto_increment,
+nombre varchar(50) not null,
+apellido varchar(50) not null,
+celular varchar(10) not null,
+direccion varchar(70) not null,
+constraint primary key(idProveedor)
+);
+
+create table compra(
+idCompra integer auto_increment,
+fechaC varchar(50) not null,
+total integer not null,
+idProveedor integer not null,
+idTienda integer not null,
+constraint primary key(idCompra),
+constraint foreign key(idProveedor)references proveedor(idProveedor),
+constraint foreign key(idTienda)references tienda(idTienda)
+);
+
+create table detalleCompra(
+idDetalleC integer auto_increment,
+cantidad integer not null,
+precio integer not null,
+subTotal integer not null,
+idCompra integer not null,
+idProducto integer not null,
+constraint primary key(idDetalleC),
+constraint foreign key(idCompra)references compra(idCompra),
+constraint foreign key(idProducto)references producto(idProducto)
+);
+
+
+
+
